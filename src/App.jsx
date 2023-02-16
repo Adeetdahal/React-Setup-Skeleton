@@ -1,36 +1,36 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '~/components/common/modal/Modal';
+import { openModal, closeModal } from '~/redux/slices/modal/modalSlice';
 
 function App() {
-  const [count, setCount] = useState(0);
+    const { isOpen, modalType } = useSelector((store) => store.modal);
+    const dispatch = useDispatch();
 
-  return (
-    <div className="flex flex-col justify-center text-center items-center h-[100vh]">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <p className="text-red-500 text-2xl">
-          testing tailwind css incline css
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  );
+    const handleOpenModal = (modalType) => {
+        dispatch(openModal({ modalType }));
+    };
+
+    return (
+        <div className="flex flex-col justify-center text-center items-center w-full h-[100vh]">
+            <p className="text-3xl">Hello world</p>
+            <button onClick={() => handleOpenModal('modal1')}>
+                Open Modal 1
+            </button>
+            <button onClick={() => handleOpenModal('modal2')}>
+                Open Modal 2
+            </button>
+            {modalType === 'modal1' && (
+                <Modal id="modal1">
+                    <h1 className="text-4xl">This is modal 1 Content</h1>
+                </Modal>
+            )}
+            {modalType === 'modal2' && (
+                <Modal id="modal2">
+                    <h1 className="text-4xl">This is modal 2 Content</h1>
+                </Modal>
+            )}
+        </div>
+    );
 }
 
 export default App;

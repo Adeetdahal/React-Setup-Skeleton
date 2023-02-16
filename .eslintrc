@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
         "airbnb",
         "prettier"
@@ -25,8 +26,16 @@
         "react/jsx-props-no-spreading": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/button-has-type":"off",
-        "no-shadow": "off"
-        // "import/no-extraneous-dependencies": "false"
-        
+        "import/no-extraneous-dependencies": "off",
+        "no-shadow": "off",
+        "react/self-closing-comp": "off",
+        "no-duplicate-imports": "error",
+        "no-console": "error",
+        "no-alert": "error",
+        "import/extensions": "off",
+        "no-unused-vars": "off",
+        "import/prefer-default-export": "off",
+        "import/no-unresolved": "off",
+        "consistent-return": "off"
     }
 }
