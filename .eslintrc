@@ -30,7 +30,7 @@
         "no-shadow": "off",
         "react/self-closing-comp": "off",
         "no-duplicate-imports": "error",
-        "no-console": "error",
+        "no-console": "off",
         "no-alert": "error",
         "import/extensions": "off",
         "no-unused-vars": "off",
