@@ -2,10 +2,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, NavLink } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { loginHandler } from '~/services/handlers/LoginHandler';
 import { login } from '~/redux/slices/login/loginSlice';
+import { api } from '~/services/Api';
 
 function LoginPage() {
     const dispatch = useDispatch();
@@ -16,10 +17,6 @@ function LoginPage() {
         reset,
         formState: { errors },
     } = useForm();
-
-    const handleLogin = (user) => {
-        dispatch(login({ user }));
-    };
 
     const OnSubmit = async (payload) => {
         console.log(payload);
@@ -33,13 +30,9 @@ function LoginPage() {
         //     toast.error(err?.response?.data?.message); //! this toast doesnt work
         //     console.log('err here1');
         // }
-        const { data } = await loginHandler(payload);
+        const { data } = await loginHandler(dispatch, payload);
         console.log(data, 'data');
-        // console.log(userName, 'username');
         localStorage.setItem('accessToken', JSON.stringify(data?.token));
-        const user = data.user_info.name;
-        // dispatch(login({ user }));
-        // dispatch(handleLogin('data.user_info.name'));
         console.log(data, 'loginpage');
         navigate('/');
         reset();
