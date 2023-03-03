@@ -5,12 +5,12 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 // import { toast } from 'react-toastify';
-// import { useDispatch } from 'react-redux';
-// import { loginHandler } from '~/services/handlers/LoginHandler';
+import { useDispatch } from 'react-redux';
+import { RegisterHandler } from '~/services/handlers/RegisterHandler';
 
 function SignUp() {
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -22,6 +22,11 @@ function SignUp() {
 
     const OnSubmit = async (payload) => {
         console.log(payload);
+        const { data } = await RegisterHandler(dispatch, payload);
+        console.log(data, 'data');
+        // localStorage.setItem('accessToken', JSON.stringify(data?.token));
+        console.log(data, 'registerpage');
+        navigate('/login');
         reset();
     };
     //
@@ -32,19 +37,19 @@ function SignUp() {
                 id="SignUp"
                 className=" flex flex-col"
             >
-                <label htmlFor="firstName">First Name:</label>
+                <label htmlFor="full_name">Full Name:</label>
                 <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
-                    {...register('firstName', {
-                        required: 'First Name cannot be empty',
+                    id="full_name"
+                    name="full_name"
+                    {...register('full_name', {
+                        required: 'Name cannot be empty',
                     })}
                 />
-                {errors.firstName && (
-                    <p className="text-red-600">{errors.firstName.message}</p>
+                {errors.full_name && (
+                    <p className="text-red-600">{errors.full_name.message}</p>
                 )}
-                <label htmlFor="lastName">Last Name:</label>
+                {/* <label htmlFor="lastName">Last Name:</label>
                 <input
                     type="text"
                     id="lastName"
@@ -55,23 +60,22 @@ function SignUp() {
                 />
                 {errors.lastName && (
                     <p className="text-red-600">{errors.lastName.message}</p>
-                )}
+                )} */}
                 <label htmlFor="email">Email:</label>
                 <input
                     type="text"
                     id="email"
                     name="email"
-                    {...register('text', {
+                    {...register('email', {
                         required: 'Email cannot be empty',
                     })}
                 />
-                {/* <p>{errors.email?.message}</p> */}
-                {errors.text && (
-                    <p className="text-red-600">{errors.text.message}</p>
+                {errors.email && (
+                    <p className="text-red-600">{errors.email.message}</p>
                 )}
-                <label htmlFor="telephone">Telephone:</label>
+                {/* <label htmlFor="phone_no">Telephone:</label>
                 <Controller
-                    name="telephone"
+                    name="phone_no"
                     control={control}
                     rules={{
                         validate: (value) => isValidPhoneNumber(value),
@@ -82,17 +86,29 @@ function SignUp() {
                             value={value}
                             onChange={onChange}
                             defaultCountry="NP"
-                            id="telephone"
+                            id="phone_no"
                             international
                             countryCallingCodeEditable={false}
                         />
                     )}
                 />
-                {errors.telephone && errors.telephone.type === 'required' && (
-                    <p className="text-red-600">{errors.telephone.message}</p>
+                {errors.phone_no && errors.phone_no.type === 'required' && (
+                    <p className="text-red-600">{errors.phone_no.message}</p>
                 )}
-                {errors.telephone && errors.telephone.type === 'validate' && (
+                {errors.phone_no && errors.phone_no.type === 'validate' && (
                     <p className="text-red-600">Invalid Phone</p>
+                )} */}
+                <label htmlFor="phone_no">Phone Number:</label>
+                <input
+                    type="number"
+                    id="phone_no"
+                    name="phone_no"
+                    {...register('phone_no', {
+                        required: 'Phone Number cannot be empty',
+                    })}
+                />
+                {errors.phone_no && (
+                    <p className="text-red-600">{errors.phone_no.message}</p>
                 )}
                 <label htmlFor="password">Password:</label>
                 <input
@@ -115,7 +131,7 @@ function SignUp() {
                 {errors.password && (
                     <p className="text-red-600">{errors.password.message}</p>
                 )}
-                <label htmlFor="confirmpassword">Confirm Password:</label>
+                {/* <label htmlFor="confirmpassword">Confirm Password:</label>
                 <input
                     type="password"
                     id="confirmpassword"
@@ -131,7 +147,17 @@ function SignUp() {
                     <p className="text-red-600">
                         {errors.confirmpassword.message}
                     </p>
-                )}
+                )} */}
+                <label htmlFor="terms_conditions">Terms and conditions:</label>
+                <input
+                    type="text"
+                    id="terms_conditions"
+                    name="terms_conditions"
+                    defaultValue={1}
+                    {...register('terms_conditions', {
+                        required: 'Terms and conditions cannot be empty',
+                    })}
+                />
 
                 <button type="submit">submit</button>
             </form>

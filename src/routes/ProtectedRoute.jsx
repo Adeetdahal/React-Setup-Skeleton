@@ -1,25 +1,23 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function ProtectedRoute({ component: Component, ...rest }) {
-    const { isAuthenticated } = useSelector((store) => store.login);
+function ProtectedRoute({ children }) {
+    const { isAuthenticated, role } = useSelector((store) => store.login);
+    console.log(role);
+    const navigate = useNavigate();
 
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                // if (isAuthenticated === false) {
-                //     return <Redirect to="/gov/login" />;
-                // }
-                // return <Component {...props} />;
-                isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to="/login" />
-                )
-            }
-        />
+    useEffect(() => {
+        if (!isAuthenticated) {
+            return navigate('/login');
+        }
+    }, [isAuthenticated]);
+
+    return role === 'admin' ? (
+        children
+    ) : (
+        // navigate('/login')
+        <div>You are unauthorized to this page</div>
     );
 }
 

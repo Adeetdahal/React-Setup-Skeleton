@@ -56,25 +56,7 @@ export default function Modal({ id, children }) {
                         </button>
                     </div>
                     {/* Modal body  */}
-                    <div className="p-6 space-y-6">
-                        {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                With less than a month to go before the European
-                                Union enacts new consumer privacy laws for its
-                                citizens, companies around the world are
-                                updating their terms of service agreements to
-                                comply.
-                            </p>
-                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                The European Union’s General Data Protection
-                                Regulation (G.D.P.R.) goes into effect on May 25
-                                and is meant to ensure a common set of data
-                                rights in the European Union. It requires
-                                organizations to notify users as soon as
-                                possible of high-risk data breaches that could
-                                personally affect them.
-                            </p> */}
-                        {children}
-                    </div>
+                    <div className="p-6 space-y-6">{children}</div>
                     {/* Modal footer  */}
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button

@@ -3,18 +3,12 @@ import { toast } from 'react-toastify';
 import { api } from '../Api';
 import { login } from '~/redux/slices/login/loginSlice';
 
-export const loginHandler = async (dispatch, payload) => {
+export const RegisterHandler = async (dispatch, payload) => {
     try {
-        const rs = await api('POST')('/login', undefined, payload);
+        const rs = await api('POST')('/user-registeration', undefined, payload);
         if (rs?.data?.status === 'success') {
             toast.success(rs?.data.message);
             console.log(rs, 'rs');
-            localStorage.setItem(
-                'accessToken',
-                JSON.stringify(rs?.data?.data?.token)
-                // JSON.stringify('test')
-            );
-            dispatch(login({ user: rs?.data?.data?.user_info }));
         } else {
             toast.error(rs?.data?.message);
             console.log(rs?.error);
